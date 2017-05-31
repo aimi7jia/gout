@@ -1,11 +1,14 @@
 <template>
-  <div class="mask" v-if="show">
-	<div class="box" v-if="show">
+  <div class="mask" v-show="open">
+	<div class="box">
 		<div class="box_tit">{{tit}}</div>
-		<div class="box_cont">dsdsds</div>
+		<div class="box_cont">
+			<p class="question">今天是否摄入高嘌呤食物？</p>
+			<p class="tips">温馨提示:<br/>每天至少喝2升以上的水，尽量选择在两餐之间快饮快排，有助于冲刷排出尿酸。</p>
+		</div>
 		<div class="box_oper">
-			<div class="btn" v-on:click="closeMask">{{cancel}}</div>
-			<div class="btn">{{ok}}</div>
+			<div class="btn" @click="closeMask">{{cancel}}</div>
+			<div class="btn" @click="sureBox">{{ok}}</div>
 		</div>
 	</div>
   </div>
@@ -15,7 +18,10 @@
 export default {
   data () {
     return {
-      show: true
+      data: {
+        'color': 'red'
+      },
+      omg: 'omg'
     }
   },
   props: {
@@ -30,11 +36,18 @@ export default {
     },
     showM: {
       default: true
+    },
+    open: {
+      default: true
     }
   },
   methods: {
     closeMask () {
-      this.show = !this.show
+      this.open = !this.open
+    },
+    sureBox () {
+      // 触发实例化参数
+      this.$emit('operate', [this.data, this.omg])
     }
   }
 }
@@ -57,15 +70,24 @@ export default {
 			left:50%;
 			width:8.9rem;
 			background:#fff;
+			transition:all .3s;
 			transform:translate(-50%,-50%);
 			border-radius:0.148rem;
 			font-size:0.416rem;
+			&.scale
+				transform:translate(-50%,-50%) scale(1);
 			.box_tit
 				text-align:center;
 				border-bottom:1px solid #ccc;
 				txtH(1.3rem);
 			.box_cont
 				min-height:2rem;
+				padding: 0.35rem 0.7rem;
+			.tips
+				color: #999;
+				line-height: 0.6rem;
+			.question
+				padding:0.3rem 0;
 			.box_oper
 				border-top:1px solid #ccc;
 				display:flex;

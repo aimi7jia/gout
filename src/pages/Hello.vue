@@ -1,7 +1,7 @@
 <template>
   <div class="hello">
-  	<btn v-on:click="openMask"></btn>
-  	<mask-box tit="測量尿酸值"></mask-box>
+  	<btn></btn>
+  	<mask-box tit="測量尿酸值" @operate="goTo"></mask-box>
   	dshdjsahfdjshfjsa
   	dshdjsahfdjshfjsa
   	dshdjsahfdjshfjsa
@@ -37,7 +37,9 @@ export default {
     'btn': norBtn
   },
   methods: {
-    openMask () {
+    goTo (param) {
+      console.log('ok')
+      console.log(param)
     }
   }
 }

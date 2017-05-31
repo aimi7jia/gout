@@ -1,36 +1,70 @@
 <template>
-  <div>
+  <div class="box">
     <div class="progress"></div>
     <div class="content">
       <div class="content_tit">血尿酸趋势<span>（单位：umol/L）</span></div>
       <div class="echart_box" id="echartLine"></div>
-      <div class="content_tit">今日任务<span>（8个任务）</span><i></i></div>
+      <div class="content_tit">今日任务<span>（8个任务）</span><i class="cal"></i></div>
       <ul class="task_list">
-        <li>
-          <h4>服药一瓶</h4>
-          <p>已服药</p>
-          <i></i>
+        <li v-for="(item,index) in rankList" @click="dialog(index)">
+          <h4>{{item.name}}</h4>
+          <p>{{item.ex}}</p>
+          <i :class="item.status=='WAIT'?'oper':'done'"></i>
         </li>
       </ul>
     </div>
     <div class="footer">
       <bottom-btn btn="健康中心"></bottom-btn>
-      <bottom-btn btn="我的"></bottom-btn>
+      <bottom-btn btn="我的" @click="goMine"></bottom-btn>
     </div>
+    <mask-box tit="測量尿酸值" @operate="goTo" :open="show" ></mask-box>
   </div>
 </template>
 
 <script>
 import bottomBtn from '../components/bottomBtn.vue'
+import maskBox from '../components/mask.vue'
 import echarts from 'echarts'
 export default {
   name: 'healthcenter',
   data () {
     return {
+      rankList: [{
+        name: '服药一瓶',
+        ex: '已服药',
+        status: 'DONE'
+      }, {
+        name: '测量血尿酸',
+        ex: 'SUA:308',
+        status: 'DONE'
+      }, {
+        name: '生化检测',
+        ex: '建议每一疗程服药完毕前往医院检测一次',
+        status: 'WAIT'
+      }, {
+        name: '戒酒',
+        ex: '建议不喝酒',
+        status: 'WAIT'
+      }, {
+        name: '喝水',
+        ex: '建议每天喝水2000ml以上',
+        status: 'WAIT'
+      }, {
+        name: '少肉',
+        ex: '建议尽量食用低嘌呤食物',
+        status: 'WAIT'
+      }, {
+        name: '蔬果',
+        ex: '建议多吃高钾质食物',
+        status: 'DONE'
+      }
+      ],
+      show: false
     }
   },
   components: {
-    'bottom-btn': bottomBtn
+    'bottom-btn': bottomBtn,
+    'mask-box': maskBox
   },
   methods: {
     drawLine (id) {
@@ -112,6 +146,12 @@ export default {
           }
         ]
       })
+    },
+    dialog (index) {
+      if (this.rankList[index].status === 'WAIT') {
+        console.log('wait')
+        this.show = true
+      }
     }
   },
   mounted () {
@@ -125,6 +165,8 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style lang="stylus" scoped>
   @import '../assets/css/base'
+  .box
+    padding-bottom:2rem;
   div
     font-size:0.416rem;
     .content_tit
@@ -132,8 +174,19 @@ export default {
       txtH(1rem);
       background: #F1F3F4;
       padding-left: 0.57rem;
+      position: relative;
       span
         font-size: 0.35rem;
+      .cal
+        display: inline-block;
+        width: 0.56rem;
+        height: 0.56rem;
+        iconBg(url("../assets/images/cal.png"))
+      i
+        position: absolute;
+        right:0.56rem;
+        top:50%;
+        margin-top:-0.28rem;
     .echart_box
       height:4.18rem;
   .footer
@@ -152,6 +205,7 @@ export default {
       border-bottom: 1px solid #ccc;
       box-sizing: border-box;
       overflow:hidden;
+      position:relative;
       h4
         color: #ae8330;
         font-size: 0.416rem;
@@ -161,4 +215,15 @@ export default {
         color: #888888;
         font-size: 0.36rem;
         margin-top: 0.1rem;
+      i
+        position: absolute;
+        top: 50%;
+        right: 0.56rem;
+        width: 0.695rem;
+        height: 0.695rem;
+        margin-top: -0.348rem;
+        &.oper
+          iconBg(url("../assets/images/oper.png"));
+        &.done
+          iconBg(url("../assets/images/done.png"));
 </style>

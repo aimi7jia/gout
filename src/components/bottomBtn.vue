@@ -1,5 +1,5 @@
 <template>
-  <div>{{btn}}</div>
+  <a>{{btn}}</a>
 </template>
 
 <script>
@@ -14,7 +14,7 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style lang="stylus" scoped>
-	div
+	a
 	   flex:1;
 	   color:#fff;
 	   text-align:center;
