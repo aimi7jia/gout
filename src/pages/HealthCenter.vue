@@ -2,7 +2,7 @@
   <div class="box">
     <div class="progress"></div>
     <div class="content">
-      <div class="content_tit">血尿酸趋势<span>（单位：umol/L）</span></div>
+      <div class="content_tit">{{showOhr}}血尿酸趋势<span>（单位：umol/L）</span></div>
       <div class="echart_box" id="echartLine"></div>
       <div class="content_tit">今日任务<span>（8个任务）</span><i class="cal"></i></div>
       <ul class="task_list">
@@ -60,6 +60,11 @@ export default {
       }
       ],
       show: false
+    }
+  },
+  computed: {
+    showOhr () {
+      return !this.show
     }
   },
   components: {
