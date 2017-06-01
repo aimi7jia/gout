@@ -1,7 +1,5 @@
 <template>
-  <div>
-	<span>{{msg}}</span>
-  </div>
+  <a>{{msg}}</a>
 </template>
 
 <script>
@@ -16,7 +14,8 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style lang="stylus" scoped>
-	div {
+	a {
+		display:inline-block;
 		background:linear-gradient(to bottom, #dbca8d 0%,#b59855 100%);
 		width:6.48rem;
 		height:1.11rem;

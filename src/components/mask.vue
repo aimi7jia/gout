@@ -1,13 +1,14 @@
 <template>
-  <div class="mask" v-show="open">
+  <div class="mask">
 	<div class="box">
 		<div class="box_tit">{{tit}}</div>
 		<div class="box_cont">
 			<p class="question">今天是否摄入高嘌呤食物？</p>
 			<p class="tips">温馨提示:<br/>每天至少喝2升以上的水，尽量选择在两餐之间快饮快排，有助于冲刷排出尿酸。</p>
+			<slot></slot>
 		</div>
 		<div class="box_oper">
-			<div class="btn" @click="closeMask">{{cancel}}</div>
+			<div class="btn">{{cancel}}</div>
 			<div class="btn" @click="sureBox">{{ok}}</div>
 		</div>
 	</div>
@@ -42,9 +43,6 @@ export default {
     }
   },
   methods: {
-    closeMask () {
-      this.open = !this.open
-    },
     sureBox () {
       // 触发实例化参数
       this.$emit('operate', [this.data, this.omg])

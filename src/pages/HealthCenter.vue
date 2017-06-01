@@ -17,7 +17,9 @@
       <bottom-btn btn="健康中心"></bottom-btn>
       <bottom-btn btn="我的" @click="goMine"></bottom-btn>
     </div>
-    <mask-box tit="測量尿酸值" @operate="goTo" :open="show" ></mask-box>
+    <mask-box tit="測量尿酸值" @operate="goTo" :open="show" >
+      <p>服药时间<input type="text" class="txt"></p>
+    </mask-box>
   </div>
 </template>
 
