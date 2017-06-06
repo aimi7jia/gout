@@ -4,7 +4,7 @@
     <div class="content">
       <div class="content_tit">{{showOhr}}血尿酸趋势<span>（单位：umol/L）</span></div>
       <div class="echart_box" id="echartLine"></div>
-      <div class="content_tit">今日任务<span>（8个任务）</span><i class="cal"></i></div>
+      <div class="content_tit">今日任务<span>（8个任务）</span><i class="cal" @click="goToMine"></i></div>
       <ul class="task_list">
         <li v-for="(item,index) in rankList" @click="dialog(index)">
           <h4>{{item.name}}</h4>
@@ -15,9 +15,9 @@
     </div>
     <div class="footer">
       <bottom-btn btn="健康中心"></bottom-btn>
-      <bottom-btn btn="我的" @click="goMine"></bottom-btn>
+      <bottom-btn btn="我的"></bottom-btn>
     </div>
-    <mask-box tit="測量尿酸值" @operate="goTo" :open="show" >
+    <mask-box tit="測量尿酸值" :tit="maskTit" :is-show="show" @close="dialogShow">
       <p>服药时间<input type="text" class="txt"></p>
     </mask-box>
   </div>
@@ -27,41 +27,87 @@
 import bottomBtn from '../components/bottomBtn.vue'
 import maskBox from '../components/mask.vue'
 import echarts from 'echarts'
+import router from '../router'
 export default {
   name: 'healthcenter',
   data () {
     return {
       rankList: [{
+        type: 'MED',
         name: '服药一瓶',
         ex: '已服药',
-        status: 'DONE'
+        status: 'WAIT'
       }, {
+        type: 'BUA',
         name: '测量血尿酸',
         ex: 'SUA:308',
-        status: 'DONE'
+        status: 'WAIT'
       }, {
+        tyoe: 'BIO',
         name: '生化检测',
         ex: '建议每一疗程服药完毕前往医院检测一次',
         status: 'WAIT'
       }, {
+        type: 'WINE',
         name: '戒酒',
         ex: '建议不喝酒',
         status: 'WAIT'
       }, {
+        type: 'DRINK',
         name: '喝水',
         ex: '建议每天喝水2000ml以上',
         status: 'WAIT'
       }, {
+        type: 'MEAT',
         name: '少肉',
         ex: '建议尽量食用低嘌呤食物',
         status: 'WAIT'
       }, {
+        type: 'VEG',
         name: '蔬果',
         ex: '建议多吃高钾质食物',
         status: 'DONE'
       }
       ],
-      show: false
+      show: false,
+      dialogData: [{
+        type: 'MED',
+        tit: '第一疗程服药时间',
+        cancel: '暂无收到药物',
+        ok: '提交'
+      }, {
+        type: 'BUA',
+        tit: '测量血尿酸',
+        cancel: '取消',
+        ok: '确定'
+      }, {
+        type: 'BIO',
+        tit: '上传第一疗程生化报告',
+        cancel: '不上传',
+        ok: '上传'
+      }, {
+        type: 'WINE',
+        tit: '戒酒',
+        cancel: '取消',
+        ok: '确定'
+      }, {
+        type: 'DRINK',
+        tit: '喝水',
+        cancel: '暂无收到药物',
+        ok: '提交'
+      }, {
+        type: 'MEAT',
+        tit: '少肉',
+        cancel: '没摄入',
+        ok: '有摄入'
+      }, {
+        type: 'VEG',
+        tit: '蔬果',
+        cancel: '没摄入',
+        ok: '有摄入'
+      }
+      ],
+      maskTit: 'ds '
     }
   },
   computed: {
@@ -156,9 +202,17 @@ export default {
     },
     dialog (index) {
       if (this.rankList[index].status === 'WAIT') {
-        console.log('wait')
-        this.show = true
+        let dailogMes = this.dialogData[index]
+        console.log(dailogMes)
+        this.maskTit = dailogMes.tit
+        this.dialogShow()
       }
+    },
+    dialogShow () {
+      this.show = !this.show
+    },
+    goToMine () {
+      router.push({name: 'mine'})
     }
   },
   mounted () {

@@ -1,5 +1,5 @@
 <template>
-  <div class="mask">
+  <div class="mask" v-show="isShow">
 	<div class="box">
 		<div class="box_tit">{{tit}}</div>
 		<div class="box_cont">
@@ -8,8 +8,8 @@
 			<slot></slot>
 		</div>
 		<div class="box_oper">
-			<div class="btn">{{cancel}}</div>
-			<div class="btn" @click="sureBox">{{ok}}</div>
+			<div class="boxBtn" @click="closeDialog">{{cancel}}</div>
+			<div class="boxBtn" @click="sureBox">{{ok}}</div>
 		</div>
 	</div>
   </div>
@@ -29,23 +29,24 @@ export default {
     tit: {
       default: '默认'
     },
+    isShow: {
+      type: Boolean,
+      default: false
+    },
     ok: {
       default: '确定'
     },
     cancel: {
       default: '取消'
-    },
-    showM: {
-      default: true
-    },
-    open: {
-      default: true
     }
   },
   methods: {
     sureBox () {
       // 触发实例化参数
       this.$emit('operate', [this.data, this.omg])
+    },
+    closeDialog () {
+      this.$emit('close')
     }
   }
 }
@@ -89,7 +90,7 @@ export default {
 			.box_oper
 				border-top:1px solid #ccc;
 				display:flex;
-				.btn
+				.boxBtn
 					flex:1;
 					txtH(1.6rem);
 					border-left:1px solid #ccc;

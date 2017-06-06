@@ -12,7 +12,7 @@
       </div>
       <input type="text" class="big_txt" v-model.trim="inviteNum" placeholder="请填写专属邀请码">
     </div>
-    <a class="btn" @click="goTo">登录</a>
+    <router-link to="/healthCenter" class="btn">登录</router-link>
   </div>
 </template>
 
@@ -20,7 +20,7 @@
 import norBtn from '../components/btn.vue'
 import maskBox from '../components/mask.vue'
 export default {
-  name: 'hello',
+  name: 'login',
   data () {
     return {
       type: false,
@@ -41,7 +41,7 @@ export default {
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
-<style lang="stylus">
+<style lang="stylus" scoped>
   @import '../assets/css/base'
   .login
     text-align: center;
