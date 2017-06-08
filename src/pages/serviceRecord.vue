@@ -1,22 +1,6 @@
 <template>
-  <div class="mine">
-    <div class="bg-gray"></div>
-    <div class="info list">
-      <span class="img">
-        <img :src="infoMes.img" alt="">
-      </span>
-      <p class="heading">
-        <span class="level">LV30 上校</span>
-        <span class="level-icon"></span>
-      </p>
-      <span class="name">{{infoMes.name}}</span>
-    </div> 
-    <ul>
-      <li class="list" v-for="(item,index) in list" @click="goToPages(index)">{{item.tit}}</li>
-    </ul>
-    <ul>
-      <li class="list">咨询医生</li>
-    </ul>
+  <div>
+    服务记录
   </div>
 </template>
 
@@ -34,7 +18,7 @@ export default {
           tit: '生化基因',
           link: {name: 'bioGene'}
         }, {
-          tit: '基因ds',
+          tit: '基因报告',
           link: {name: 'geneReport'}
         }
       ],
@@ -105,6 +89,15 @@ middle()
     top:1.3rem;
     left:2.44rem;
     color:#AE8330;
+.bg-gray
+  position:fixed;
+  background:#F1F3F4;
+  top:0;
+  height:0;
+  bottom:0;
+  right:0;
+  width:100%;
+  height:100%;
 ul
   margin-top:0.55rem;
   li

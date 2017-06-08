@@ -203,7 +203,6 @@ export default {
     dialog (index) {
       if (this.rankList[index].status === 'WAIT') {
         let dailogMes = this.dialogData[index]
-        console.log(dailogMes)
         this.maskTit = dailogMes.tit
         this.dialogShow()
       }

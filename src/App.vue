@@ -3,8 +3,6 @@
     <keep-alive>
       <router-view></router-view>
     </keep-alive>
-<!--     <route-link :tp="{path:'hello'}">to hello</route-link>
-    <route-link :tp="{path:'healthCenter'}">to hello</route-link> -->
   </div>
 </template>
 
